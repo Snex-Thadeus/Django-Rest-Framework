@@ -11,7 +11,7 @@ from .permissions import IsStaffEditorPermission
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    authentication_classes = [authentication.SessionAuthentication, TokenAuthentication]
+    # authentication_classes = [authentication.SessionAuthentication, TokenAuthentication] #We use those in settings
     permission_classes =[permissions.IsAdminUser, IsStaffEditorPermission]
     # permission_classes =[permissions.DjangoModelPermissions] #Works for PUT POST DELETE
     # permission_classes =[permissions.IsAuthenticatedOrReadOnly]
