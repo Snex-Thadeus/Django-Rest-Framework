@@ -1,18 +1,17 @@
-from rest_framework import authentication, generics, mixins, permissions
+from rest_framework import  generics, mixins
 from .models import Product
 from . serializers import ProductSerializer
-from api.authentication import TokenAuthentication
-
+from api.mixins import StaffEditorPermissionMixin
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
-from .permissions import IsStaffEditorPermission
 
-class ProductListCreateAPIView(generics.ListCreateAPIView):
+
+
+class ProductListCreateAPIView(StaffEditorPermissionMixin, generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     # authentication_classes = [authentication.SessionAuthentication, TokenAuthentication] #We use those in settings
-    permission_classes =[permissions.IsAdminUser, IsStaffEditorPermission]
     # permission_classes =[permissions.DjangoModelPermissions] #Works for PUT POST DELETE
     # permission_classes =[permissions.IsAuthenticatedOrReadOnly]
 
@@ -29,7 +28,7 @@ product_list_create_view = ProductListCreateAPIView.as_view()
 
 
 
-class ProductDetailAPIView(generics.RetrieveAPIView):
+class ProductDetailAPIView(StaffEditorPermissionMixin, generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     # lookup_field = 'pk'
@@ -47,7 +46,7 @@ product_list_view = ProductListAPIView.as_view()
 
 
 
-class ProductUpdateAPIView(generics.UpdateAPIView):
+class ProductUpdateAPIView(StaffEditorPermissionMixin, generics.UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
@@ -59,7 +58,7 @@ class ProductUpdateAPIView(generics.UpdateAPIView):
 
 
 
-class ProductDeleteAPIView(generics.DestroyAPIView):
+class ProductDeleteAPIView(StaffEditorPermissionMixin, generics.DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
