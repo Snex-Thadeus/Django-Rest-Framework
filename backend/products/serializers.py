@@ -25,6 +25,7 @@ class ProductSerializer(serializers.ModelSerializer):
             # 'email',
             'price',
             'sale_price',
+            'public',
             # 'my_discount'
         ]
 
