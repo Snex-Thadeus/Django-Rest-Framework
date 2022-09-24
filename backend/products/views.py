@@ -1,3 +1,4 @@
+import email
 from rest_framework import  generics, mixins
 from .models import Product
 from . serializers import ProductSerializer
@@ -17,6 +18,7 @@ class ProductListCreateAPIView(StaffEditorPermissionMixin, generics.ListCreateAP
 
     def perform_create(self, serializer):
         # print(serializer.validated_data)
+        # email = serializer.validated_data.pop('email')
         title = serializer.validated_data.get('title')
         content = serializer.validated_data.get('content') or None
         
