@@ -3,8 +3,11 @@ from turtle import title
 from django.db import models
 from django.conf import settings
 from django.db.models import Q
+import random
 
 User = settings.AUTH_USER_MODEL #auth.User
+
+TAGS_MODEL_VALUES = ['electronics', 'cars', 'boats', 'movies', 'cameras']
 
 
 
@@ -39,7 +42,15 @@ class Product(models.Model):
 
     objects = ProductManager()
 
-    def __str__(self):
+    def is_public(self):
+        return self.public
+        
+
+    def get_tag_list(self):
+        return [random.choice(TAGS_MODEL_VALUES)]
+
+
+    def __str__(self) -> bool:
         return self.title
 
 
