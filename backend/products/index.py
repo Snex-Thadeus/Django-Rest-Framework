@@ -13,6 +13,7 @@ class ProductIndex(AlgoliaIndex):
         'price',
         'user',
         'public',
+        'path',
     ]
 
     settings = {

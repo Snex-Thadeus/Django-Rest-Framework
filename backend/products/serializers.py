@@ -7,25 +7,29 @@ from .validators import validate_title_no_hello, unique_product_title
 class ProductSerializer(serializers.ModelSerializer):
     owner = UserPublicSerializer(source='user', read_only=True)
     # my_discount = serializers.SerializerMethodField(read_only=True)
-    edit_url = serializers.SerializerMethodField(read_only=True)
-    url = serializers.HyperlinkedIdentityField(view_name='product-detail', lookup_field='pk')
+    # edit_url = serializers.SerializerMethodField(read_only=True)
+    # url = serializers.HyperlinkedIdentityField(view_name='product-detail', lookup_field='pk')
     # email = serializers.EmailField(source='user.email', read_only=True)
     title = serializers.CharField(validators=[validate_title_no_hello, unique_product_title])
     # name = serializers.CharField(source='title', read_only=True)
+    body = serializers.CharField(source='content')
     class Meta:
         model = Product
         fields = [
             'owner',
-            'url',
-            'edit_url',
+            # 'url',
+            # 'edit_url',
             'pk',
             'title',
+            'body',
             # 'name',
             'content',
             # 'email',
             'price',
             'sale_price',
             'public',
+            'path',
+            'endpoint',
             # 'my_discount'
         ]
 
