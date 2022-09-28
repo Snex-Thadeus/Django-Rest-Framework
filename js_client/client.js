@@ -87,8 +87,8 @@ function writeToContainer(data){
 }
 
 function getFetchOptions(method, body){
-    const options = {
-        method: method == null ? "GET" : method,
+    return {
+        method: method === null ? "GET" : method,
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem('access')}`
@@ -121,8 +121,7 @@ function validateJWTToken(){
     fetch(endpoint, options) 
     .then(response=> response.json())
     .then(x=> {
-        console.log(x)
-        isTokenNotValid(x)
+        // refresh
     })
 }
 
